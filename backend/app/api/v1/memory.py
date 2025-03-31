@@ -27,6 +27,7 @@ class queryInput(baseModel):
 
 @router.post("/ingest")
 def ingest_memory(payload: MemoryInput):
+    pass
 
 
 
