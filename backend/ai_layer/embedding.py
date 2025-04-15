@@ -6,16 +6,60 @@ import os
 
 from langcahin.prompts import PromptTemplate, ChatPromptTemplate
 
+
+from langchain.retrievers.multi_query import MultiQueryRetriever
+
 # Initialize OpenAI API key from environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
-PromptTemplate = PromptTemplate(
-    input_variables=["context", "question"],
-    template="You are a helpful assistant. Use the following context to answer the question.\n\nContext: {context}\n\nQuestion: {question}\n\nAnswer:"
+PromptTemplate = PromptTemplate.from_template(
+    
+    "You are an expert assistant that rephrases questions for better memory retrieval.\n"
+    "Generate multiple variations of this question to help find relevant information:\n\n"
+    "{question}"
 )
 
-ChatPrompt = ChatPromptTemplate.from_te
+ChatPrompt = ChatPromptTemplate.from_messages(
+    {
+        ("system", "You are a helpful assistant for summarizing memory chunks."),
+        ("human", "Here are the chunks: {context}\n\nQuestion: {question}")
+    }
+    
+)
+
+
+def get_retriever():
+    try:
+        llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY)
+        vectorstore = load_vectorstore()
+        retriever = MultiQueryRetriever.from_llm(
+            llm = llm,
+            retriever = vectorstore.as_retriever(),
+            PromptTemplate = PromptTemplate,
+        
+        )
+        return retriever
+    except Exception as e:
+        print(f"Error in get_retriever: {e}")
+        return None
+    
+
+
+def get_response(query):
+    retreiver = get_retriever()
+    chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        retriever=e=retreiver,  # MultiQueryRetriever or standard retriever
+        chain_type="stuff",      # or "map_reduce" for longer docs
+        return_source_documents=True
+    )
+    
+    response = chain.run(query)
+    
+    return response
+
+
 
 def processData(data):
     text_splitter = RecursiveCharacterTextSplitter(
@@ -37,6 +81,7 @@ def embedData(data, save_path="vectorstore"):
         embedding=embedding
     )
     
+    # save the vector store to AWS later on
     vectorstore.save_local(save_path)
     return vectorstore
 
