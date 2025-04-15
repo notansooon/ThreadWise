@@ -1,15 +1,17 @@
-from sqlalchemy import sqlalchemy
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine  
 from sqlalchemy.orm import sessionmaker
 
-
-
-
-DATABASE_URL = ""  # Example for SQLite, change as needed
+DATABASE_URL = ""  
 engine = create_engine(DATABASE_URL)
 
 Session = sessionmaker(bind=engine)
-session = Session()
+
+def get_db():
+    db = Session()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 

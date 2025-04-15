@@ -1,60 +1,42 @@
-from fastapi import APIRouter
-from app.services import memory_service
-from app.services import search_service
-
-from pydantic import baseModel
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.core.database import get_db
+from app.services import memory_service, search_service
+from pydantic import BaseModel  
 
 router = APIRouter()
 
-
-
-
-
-class MemoryInput(baseModel):
+class MemoryInput(BaseModel):  
     memory: str
     tags: list[str] = []
     source: str = ""
     title: str = ""
-    
-class MemoryOutput(baseModel):
+
+class MemoryOutput(BaseModel):  
     id: str
 
-class queryInput(baseModel):
+class QueryInput(BaseModel):  
     query: str
-    
-
-
 
 @router.post("/ingest")
-def ingest_memory(payload: MemoryInput):
-    pass
+def ingest_memory(payload: MemoryInput, db: Session = Depends(get_db)):
+    return memory_service.add_memory(payload)
 
-
-
-@router.post("/query")
-def query_memory(payload: queryInput):
-    """
-    Query the memory database using a search service.
-    """
-    query = payload.memory
+@router.get("/search")
+def search_memory(payload: QueryInput):  
+    query = payload.query
     results = search_service.search(query)
     return results
 
-@router.get("thread/{thread_id}")
+@router.post("/query")
+def query_memory(payload: QueryInput):  
+    query = payload.query
+    results = search_service.search(query)
+    return results
+
+@router.get("/thread/{thread_id}")  
 def get_thread(thread_id: str):
     return memory_service.get_thread_by_id(thread_id)
-    
-    
-    
-    
-
-
-
-
-
-
-
- 
 
 
 
@@ -63,10 +45,21 @@ def get_thread(thread_id: str):
 
 
 
-    
-    
-    
-             
-    
-    
-           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
