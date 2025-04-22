@@ -28,6 +28,7 @@ def search_memory(payload: QueryInput):
     results = search_service.search(query)
     return results
 
+
 @router.post("/query")
 def query_memory(payload: QueryInput):  
     query = payload.query

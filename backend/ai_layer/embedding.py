@@ -4,14 +4,16 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 import os
 
-from langcahin.prompts import PromptTemplate, ChatPromptTemplate
+from langchain.prompts import PromptTemplate, ChatPromptTemplate
 
 
 from langchain.retrievers.multi_query import MultiQueryRetriever
+from langchain.chains import RetrievalQA
 
 # Initialize OpenAI API key from environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY)
 
 PromptTemplate = PromptTemplate.from_template(
     
@@ -31,7 +33,7 @@ ChatPrompt = ChatPromptTemplate.from_messages(
 
 def get_retriever():
     try:
-        llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY)
+        
         vectorstore = load_vectorstore()
         retriever = MultiQueryRetriever.from_llm(
             llm = llm,
@@ -50,8 +52,8 @@ def get_response(query):
     retreiver = get_retriever()
     chain = RetrievalQA.from_chain_type(
         llm=llm,
-        retriever=e=retreiver,  # MultiQueryRetriever or standard retriever
-        chain_type="stuff",      # or "map_reduce" for longer docs
+        retriever=retreiver,  
+        chain_type="stuff",      
         return_source_documents=True
     )
     
