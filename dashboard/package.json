@@ -8,21 +8,12 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "build:css": "tailwindcss -i src/input.css -o src/tailwind.css --config ../tailwind.config.js",
-    "watch:css": "tailwindcss -i src/input.css -o src/tailwind.css --config ../tailwind.config.js --watch",
-    "start": "concurrently \"npm run watch:css\" \"react-scripts start\"",
-    "build": "npm run build:css && react-scripts build"
-    
-
-
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "devDependencies": {
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "autoprefixer": "^10.4.21",
-    "concurrently": "^9.1.2",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.4",
     "typescript": "^4.9.5"
   },
   "browserslist": {

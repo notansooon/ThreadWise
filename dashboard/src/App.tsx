@@ -17,11 +17,9 @@ export default function App() {
       url.searchParams.append('method', method);
       const res = await fetch(url.toString());
 
-
       if (!res.ok) {
         throw new Error('Network response error');
       }
-
 
       const response = await res.json();
 
@@ -34,8 +32,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-6">🧠 ThreadWise Memory Search</h1>
+    <div>
+      <h1>🧠 ThreadWise Memory Search</h1>
       <SearchBox
         query={query}
         setQuery={setQuery}
@@ -44,7 +42,7 @@ export default function App() {
         onSearch={handleSearch}
         loading={loading}
       />
-      <div className="mt-6 max-w-2xl mx-auto">
+      <div>
         <ResultsList results={results} />
       </div>
     </div>

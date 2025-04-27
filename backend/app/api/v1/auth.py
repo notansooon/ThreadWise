@@ -9,7 +9,6 @@ def login(requests : Requests):
            
 @router.get("/callback")
 def callback(requests: Requests):
-    
-    
+    pass
     
     

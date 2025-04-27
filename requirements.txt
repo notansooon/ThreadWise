@@ -1,0 +1,1 @@
+# No changes needed if Tailwind-related dependencies are not present.

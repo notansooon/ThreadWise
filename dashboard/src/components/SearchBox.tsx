@@ -18,17 +18,15 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   loading,
 }) => {
   return (
-    <div className="bg-white shadow-md rounded-xl p-4 max-w-2xl mx-auto">
+    <div>
       <input
         type="text"
-        className="w-full p-2 border border-gray-300 rounded mb-4"
         placeholder="Ask a question..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
 
       <select
-        className="w-full p-2 mb-4 border border-gray-300 rounded"
         value={method}
         onChange={(e) => setMethod(e.target.value)}
       >
@@ -37,7 +35,6 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
       </select>
 
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         onClick={onSearch}
         disabled={loading}
       >
