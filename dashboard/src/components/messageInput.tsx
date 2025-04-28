@@ -16,46 +16,39 @@ export const MessageInput = () => {
     
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!text.trim()) return; // Prevent empty submissions
-    ]
+        if (!text.trim()) return; 
+        setText('');
+    }
 
-        
-    
-    
-    
+
     
     
     return (
         <>
 
-<form onSubmit={handleSubmit} className="input-form">
-      <input
-        className="input-text"
-        value={text}
-        onChange={({ target: { value } }) => setText(value)}
-        disabled={disabled}
-        placeholder="Type a message..."
-      />
-      <button
-        type="submit"
-        className="send-button"
-        disabled={disabled}
-      >
-        Send
-      </button>
-    </form>
+      <form onSubmit={handleSubmit} className="input-form">
+            <input
+              className="input-text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              
+              placeholder="Type a message..."
+            />
+            <button
+              type="submit"
+              className="send-button"
+              
+            >
+              Send
+            </button>
+          </form>
 
         
         
         </>
     )
 
-
-
-
-
-
-}
+  }
 
 
 
