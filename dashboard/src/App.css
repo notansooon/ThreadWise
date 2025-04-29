@@ -40,3 +40,87 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.chat-ui {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 16px;
+  background-color: #f3f3f3;
+}
+
+.header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.message-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message {
+  max-width: 60%;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.message-user {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.message-bot {
+  background-color: white;
+  color: black;
+  align-self: flex-start;
+}
+
+.typing {
+  font-style: italic;
+  color: #666;
+}
+
+.input-form {
+  display: flex;
+}
+
+.input-text {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.send-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

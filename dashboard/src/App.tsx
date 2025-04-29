@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
 
-import { SearchBox } from './components/SearchBox';
-import { ResultsList } from './components/ResultsList'; 
+import './App.css';
 
+
+
+
+import { MessageWindow } from './components/MessageWindow'; 
+import { MessageInput } from './components/MessageInput';
+
+
+export interface  Message {
+  role: 'user' | 'bot'
+  text: string
+}
 export default function App() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [method, setMethod] = useState('keyword');
-  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [results, setResults] = useState<string[]>([]);
 
-  const handleSearch = async () => {
+
+  const [query, setQuery] = useState('');
+  const [method, setMethod] = useState('keyword');
+  
+  const handleSearch = async (text: string) => {
+
+    setMessages(ms => [...ms, {role: 'user', text}]);
     setLoading(true);
+    
+
     try {
       const url = new URL('http://localhost:8000/search');
       url.searchParams.append('query', query);
@@ -32,19 +49,10 @@ export default function App() {
   };
 
   return (
-    <div>
-      <h1>🧠 ThreadWise Memory Search</h1>
-      <SearchBox
-        query={query}
-        setQuery={setQuery}
-        method={method}
-        setMethod={setMethod}
-        onSearch={handleSearch}
-        loading={loading}
-      />
-      <div>
-        <ResultsList results={results} />
-      </div>
+    <div className="chat-ui">
+      <header className="header">ThreadWise</header>
+      <MessageWindow messages={messages} loading={loading} />
+      <MessageInput onSearch={handleSearch} disabled={loading} />
     </div>
   );
 }
