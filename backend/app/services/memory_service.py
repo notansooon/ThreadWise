@@ -1,4 +1,4 @@
-from app.model.memory_model import MemoryModel  # Fixed import path
+from backend.model.memory_model import MemoryModel  # Fixed import path
 from sqlalchemy.orm import Session
 
 def get_thread_by_id(thread_id: str):
