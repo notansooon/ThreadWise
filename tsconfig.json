@@ -103,7 +103,7 @@
   "include": [
     "dashboard/src/**/*",     
     "overlay-ui/src/**/*"     
-  ],
+, "overlay-ui/renderer.js"  ],
   "exclude": [
     "node_modules",
     "dist",

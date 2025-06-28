@@ -1,13 +1,13 @@
 from fastapi import FastAPI 
 from app.api.v1 import memory, auth
-from backend.app.core.database import base, engine
+from backend.app.core.database import Base, engine
 from integration.slackAPI import SlackRouter
 from integration.notionAPI import NotionRouter
 
 
 
 app = FastAPI()
-base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 
 app.include_router(memory.router, prefix="/api/v1/memory", tags=["memory"])

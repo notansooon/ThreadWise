@@ -1,0 +1,39 @@
+{
+           "name": "ai-overlay",
+           "version": "1.0.0",
+           "description": "AI-powered desktop overlay with Electron",
+           "main": "electron.js",
+           "scripts": {
+             "start": "electron .",
+             "dev": "electron .",
+             "build": "electron-builder"
+           },
+           "author": "Your Name",
+           "license": "MIT",
+           "dependencies": {
+             "electron": "^29.0.0"
+           },
+           "devDependencies": {
+             "electron-builder": "^24.6.0"
+           },
+           "build": {
+             "appId": "com.threadwise.aioverlay",
+             "productName": "AIOverlay",
+             "directories": {
+               "output": "dist"
+             },
+             "files": [
+               "**/*"
+             ],
+             "mac": {
+               "target": "dmg"
+             },
+             "win": {
+               "target": "nsis"
+             },
+             "linux": {
+               "target": "AppImage"
+             }
+           }
+         }
+         
